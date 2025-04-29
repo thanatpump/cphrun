@@ -1,0 +1,55 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Registration {
+  id                Int      @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  email            String   @unique
+  phone            String
+  age              Int
+  eventType        String
+  shirtSize        String
+  deliveryMethod   String
+  address          String?
+  subDistrict      String?
+  district         String?
+  province         String?
+  postalCode       String?
+  emergencyPhone   String
+  paymentStatus    String   @default("pending")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  payment          Payment?
+}
+
+model Payment {
+  id             Int          @id @default(autoincrement())
+  registration   Registration @relation(fields: [registrationId], references: [id])
+  registrationId Int          @unique
+  amount         Float
+  paymentMethod  String
+  paymentDate    DateTime?
+  paymentStatus  String       @default("pending")
+  receiptImage   String?
+  verificationNote String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model AdminUser {
+  id                Int      @id @default(autoincrement())
+  username          String   @unique
+  passwordHash      String
+  role              String   @default("admin")
+  lastVerifiedAt    DateTime?
+  lastVerifiedPaymentId Int?
+  createdAt         DateTime @default(now())
+} 
