@@ -311,7 +311,11 @@ export default function PaymentList() {
                   </div>
                 </div>
                 <div className="pt-4 border-t border-gray-200">
-                  {selectedPayment.paymentStatus === 'PENDING_VERIFICATION' ? (
+                  {(!selectedPayment.paymentStatus || 
+                    selectedPayment.paymentStatus === 'PENDING_VERIFICATION' || 
+                    selectedPayment.paymentStatus === 'pending' ||
+                    selectedPayment.paymentStatus === 'PENDING' ||
+                    selectedPayment.paymentStatus === 'รอตรวจสอบ') ? (
                     <div className="space-y-3">
                       <button
                         onClick={() => handleVerification(selectedPayment.id, 'verified')}

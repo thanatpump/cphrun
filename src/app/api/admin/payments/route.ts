@@ -21,7 +21,7 @@ export async function GET(request: Request) {
     // สร้าง query conditions
     const where = registrationId 
       ? { registrationId: parseInt(registrationId) }
-      : { paymentStatus: 'PENDING_VERIFICATION' }
+      : {}  // เอาเงื่อนไข paymentStatus ออก เพื่อให้แสดงข้อมูลทั้งหมด
 
     // ดึงข้อมูลการชำระเงิน
     const payments = await prisma.payment.findMany({

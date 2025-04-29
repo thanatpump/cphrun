@@ -70,9 +70,13 @@ export default function PaymentPage() {
         return
       }
 
+      const amount = EVENT_PRICES[registrationData.eventType as keyof typeof EVENT_PRICES]
+
       const formData = new FormData()
       formData.append('file', selectedFile)
       formData.append('registrationId', registrationData.registrationId.toString())
+      formData.append('paymentMethod', 'promptpay')
+      formData.append('amount', amount.toString())
 
       console.log('Sending payment confirmation request...')
       const response = await fetch('/api/payment/upload', {
