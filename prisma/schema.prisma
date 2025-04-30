@@ -25,6 +25,7 @@ model Registration {
   postalCode       String?
   emergencyPhone   String
   paymentStatus    String   @default("pending")
+  shippingStatus   String?  @default("PENDING")
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   payment          Payment?

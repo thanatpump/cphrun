@@ -32,14 +32,14 @@ export async function POST(request: Request) {
         id: registrationId
       },
       data: {
-        paymentStatus: 'completed',
+        paymentStatus: 'COMPLETED',
         updatedAt: new Date()
       }
     })
 
     return NextResponse.json({
       success: true,
-      status: 'completed'
+      status: 'COMPLETED'
     })
   } catch (error) {
     console.error('Error checking payment status:', error)

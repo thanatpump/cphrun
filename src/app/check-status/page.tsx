@@ -77,16 +77,18 @@ export default function CheckStatusPage() {
     }
   }
 
-  const getStatusText = (status: string | undefined) => {
+  const getStatusText = (status: string) => {
     switch (status) {
+      case 'PENDING':
+        return 'รอการชำระเงิน';
+      case 'PENDING_REVIEW':
+        return 'รอการตรวจสอบการชำระเงิน';
       case 'COMPLETED':
-        return 'ชำระเงินแล้ว'
+        return 'ชำระเงินแล้ว';
       case 'REJECTED':
-        return 'ปฏิเสธการชำระเงิน'
-      case 'PENDING_VERIFICATION':
-        return 'รอตรวจสอบการชำระเงิน'
+        return 'การชำระเงินถูกปฏิเสธ';
       default:
-        return 'ยังไม่ชำระเงิน'
+        return 'ไม่ทราบสถานะ';
     }
   }
 
@@ -126,7 +128,7 @@ export default function CheckStatusPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="กรอกอีเมลที่ใช้ลงทะเบียน"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors text-gray-900 bg-white"
                   />
                 </div>
               </div>
@@ -179,7 +181,7 @@ export default function CheckStatusPage() {
                         </div>
                         <div>
                           <p className="text-sm text-gray-600">ชื่อ-นามสกุล</p>
-                          <p className="font-medium text-lg">
+                          <p className="font-medium text-lg text-gray-900">
                             {registration.firstName} {registration.lastName}
                           </p>
                         </div>
@@ -190,7 +192,7 @@ export default function CheckStatusPage() {
                         </div>
                         <div>
                           <p className="text-sm text-gray-600">อีเมล</p>
-                          <p className="font-medium text-lg">{registration.email}</p>
+                          <p className="font-medium text-lg text-gray-900">{registration.email}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
@@ -199,7 +201,7 @@ export default function CheckStatusPage() {
                         </div>
                         <div>
                           <p className="text-sm text-gray-600">ประเภทการแข่งขัน</p>
-                          <p className="font-medium text-lg">{registration.eventType}</p>
+                          <p className="font-medium text-lg text-gray-900">{registration.eventType}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
@@ -208,7 +210,7 @@ export default function CheckStatusPage() {
                         </div>
                         <div>
                           <p className="text-sm text-gray-600">วันที่ลงทะเบียน</p>
-                          <p className="font-medium text-lg">
+                          <p className="font-medium text-lg text-gray-900">
                             {format(new Date(registration.createdAt), 'PPp', { locale: th })}
                           </p>
                         </div>
@@ -220,7 +222,7 @@ export default function CheckStatusPage() {
                         <div>
                           <p className="text-sm text-gray-600">สถานะการชำระเงิน</p>
                           <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(registration.payment?.paymentStatus)}`}>
-                            {getStatusText(registration.payment?.paymentStatus)}
+                            {getStatusText(registration.payment?.paymentStatus || '')}
                           </span>
                         </div>
                       </div>
@@ -231,7 +233,7 @@ export default function CheckStatusPage() {
                           </div>
                           <div>
                             <p className="text-sm text-gray-600">จำนวนเงิน</p>
-                            <p className="font-medium text-lg">{registration.payment.amount} บาท</p>
+                            <p className="font-medium text-lg text-gray-900">{registration.payment.amount} บาท</p>
                           </div>
                         </div>
                       )}
@@ -242,7 +244,7 @@ export default function CheckStatusPage() {
                           </div>
                           <div>
                             <p className="text-sm text-gray-600">วันที่ชำระเงิน</p>
-                            <p className="font-medium text-lg">
+                            <p className="font-medium text-lg text-gray-900">
                               {format(new Date(registration.payment.paymentDate), 'PPp', { locale: th })}
                             </p>
                           </div>
@@ -255,7 +257,7 @@ export default function CheckStatusPage() {
                           </div>
                           <div>
                             <p className="text-sm text-gray-600">หมายเหตุ</p>
-                            <p className="font-medium text-lg">{registration.payment.verificationNote}</p>
+                            <p className="font-medium text-lg text-gray-900">{registration.payment.verificationNote}</p>
                           </div>
                         </div>
                       )}

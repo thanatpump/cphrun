@@ -4,7 +4,33 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FaUsers, FaCheckCircle, FaClock, FaTimesCircle } from 'react-icons/fa'
 import { Registration } from '@prisma/client'
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
+import dynamic from 'next/dynamic'
+
+// Dynamic import for Recharts to avoid SSR issues
+const RechartsPieChart = dynamic(
+  () => import('recharts').then(mod => mod.PieChart),
+  { ssr: false }
+)
+const RechartsPie = dynamic(
+  () => import('recharts').then(mod => mod.Pie),
+  { ssr: false }
+)
+const RechartsCell = dynamic(
+  () => import('recharts').then(mod => mod.Cell),
+  { ssr: false }
+)
+const RechartsResponsiveContainer = dynamic(
+  () => import('recharts').then(mod => mod.ResponsiveContainer),
+  { ssr: false }
+)
+const RechartsLegend = dynamic(
+  () => import('recharts').then(mod => mod.Legend),
+  { ssr: false }
+)
+const RechartsTooltip = dynamic(
+  () => import('recharts').then(mod => mod.Tooltip),
+  { ssr: false }
+)
 
 interface DashboardStats {
   total: number
@@ -187,44 +213,54 @@ export default function DashboardPage() {
     { name: 'ยกเลิก', value: data.rejected }
   ]
 
-  const renderPieChart = (data: { name: string; value: number }[], title: string) => (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-xl font-bold mb-6 text-center">{title}</h2>
-      <div className="w-full h-[300px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              labelLine={true}
-              label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-              outerRadius={100}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={
-                    entry.name === 'ชำระเงินสำเร็จ' ? COLORS.completed :
-                    entry.name === 'รอดำเนินการ' ? COLORS.pending :
-                    COLORS.rejected
-                  }
-                />
-              ))}
-            </Pie>
-            <Tooltip formatter={(value) => [`${value} คน`, 'จำนวนผู้สมัคร']} />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
+  const renderPieChart = (data: { name: string; value: number }[], title: string) => {
+    if (typeof window === 'undefined') return null; // Prevent SSR issues
+    
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h2 className="text-xl font-bold mb-6 text-center text-gray-900">{title}</h2>
+        <div className="w-full h-[300px]">
+          <RechartsResponsiveContainer width="100%" height="100%">
+            <RechartsPieChart>
+              <RechartsPie
+                data={data}
+                cx="50%"
+                cy="50%"
+                labelLine={true}
+                label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                outerRadius={100}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <RechartsCell 
+                    key={`cell-${index}`} 
+                    fill={
+                      entry.name === 'ชำระเงินสำเร็จ' ? COLORS.completed :
+                      entry.name === 'รอดำเนินการ' ? COLORS.pending :
+                      COLORS.rejected
+                    }
+                  />
+                ))}
+              </RechartsPie>
+              <RechartsTooltip 
+                formatter={(value) => [`${value} คน`, 'จำนวนผู้สมัคร']}
+                contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}
+                labelStyle={{ color: '#1f2937' }}
+              />
+              <RechartsLegend 
+                wrapperStyle={{ color: '#1f2937' }}
+              />
+            </RechartsPieChart>
+          </RechartsResponsiveContainer>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-8">แดชบอร์ด</h1>
+      <h1 className="text-3xl font-bold mb-8 text-gray-900">แดชบอร์ด</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {cards.map((card, index) => (
@@ -240,7 +276,7 @@ export default function DashboardPage() {
                 <card.icon className={`h-6 w-6 ${card.textColor}`} />
               </div>
               <motion.span 
-                className="text-3xl font-bold"
+                className="text-3xl font-bold text-gray-900"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ 
@@ -253,7 +289,7 @@ export default function DashboardPage() {
                 {card.value}
               </motion.span>
             </div>
-            <h3 className="text-gray-600 text-sm">{card.title}</h3>
+            <h3 className="text-gray-800 text-sm">{card.title}</h3>
           </motion.div>
         ))}
       </div>

@@ -32,7 +32,7 @@ export interface RegistrationData {
   }
   createdAt?: string
   updatedAt?: string
-  paymentStatus?: 'pending' | 'pending_review' | 'completed' | 'rejected'
+  paymentStatus?: 'PENDING' | 'PENDING_REVIEW' | 'COMPLETED' | 'REJECTED'
 }
 
 export interface PaymentData {
@@ -40,7 +40,7 @@ export interface PaymentData {
   registrationId: number
   amount: number
   paymentMethod: 'bank_transfer'
-  paymentStatus: 'pending' | 'pending_review' | 'completed' | 'rejected'
+  paymentStatus: 'PENDING' | 'PENDING_REVIEW' | 'COMPLETED' | 'REJECTED'
   paymentDate?: string
   verificationNote?: string
   createdAt?: string

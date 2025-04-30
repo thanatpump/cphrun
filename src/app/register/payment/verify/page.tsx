@@ -112,7 +112,7 @@ export default function PaymentVerification() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="กรอกอีเมลที่ใช้ลงทะเบียน"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors text-gray-900 bg-white"
                   />
                 </div>
               </div>
@@ -148,43 +148,24 @@ export default function PaymentVerification() {
               transition={{ duration: 0.5 }}
               className="bg-white rounded-2xl shadow-xl p-8 border border-violet-100"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-violet-100 rounded-lg">
-                    <FaUser className="h-5 w-5 text-violet-600" />
+              <div className="mb-8">
+                <h2 className="text-xl font-semibold text-violet-900 mb-4">ข้อมูลการชำระเงิน</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-900">
+                  <div>
+                    <p className="font-medium text-violet-700">ชื่อ-นามสกุล</p>
+                    <p className="text-gray-900">{paymentData.firstName} {paymentData.lastName}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">ชื่อ-นามสกุล</p>
-                    <p className="font-medium text-lg">
-                      {paymentData.firstName} {paymentData.lastName}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-violet-100 rounded-lg">
-                    <FaEnvelope className="h-5 w-5 text-violet-600" />
+                    <p className="font-medium text-violet-700">อีเมล</p>
+                    <p className="text-gray-900">{paymentData.email}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">อีเมล</p>
-                    <p className="font-medium text-lg">{paymentData.email}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-violet-100 rounded-lg">
-                    <FaRunning className="h-5 w-5 text-violet-600" />
+                    <p className="font-medium text-violet-700">ประเภทการแข่งขัน</p>
+                    <p className="text-gray-900">{paymentData.eventType}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">ประเภทการแข่งขัน</p>
-                    <p className="font-medium text-lg">{paymentData.eventType}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-violet-100 rounded-lg">
-                    <FaMoneyBillWave className="h-5 w-5 text-violet-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">จำนวนเงินที่ต้องชำระ</p>
-                    <p className="font-medium text-lg">{paymentData.amount} บาท</p>
+                    <p className="font-medium text-violet-700">จำนวนเงิน</p>
+                    <p className="text-2xl font-bold text-violet-700">{paymentData.amount} บาท</p>
                   </div>
                 </div>
               </div>

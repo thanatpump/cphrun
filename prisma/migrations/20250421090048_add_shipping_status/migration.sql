@@ -1,0 +1,1 @@
+ALTER TABLE `Registration` ADD COLUMN `shippingStatus` VARCHAR(191) DEFAULT 'PENDING'; 

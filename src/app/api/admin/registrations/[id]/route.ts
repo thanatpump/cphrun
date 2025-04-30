@@ -43,9 +43,7 @@ export async function GET(
     // แปลงข้อมูลให้ตรงกับหน้าหลัก
     const formattedRegistration = {
       ...registration,
-      paymentStatus: registration.payment?.paymentStatus === 'COMPLETED' ? 'completed' :
-                    registration.payment?.paymentStatus === 'REJECTED' ? 'rejected' :
-                    'pending'
+      paymentStatus: registration.payment?.paymentStatus || 'PENDING'
     }
 
     return new NextResponse(

@@ -78,9 +78,7 @@ export default function Summary() {
         eventType: registrationData.eventType,
         shirtSize: registrationData.shirtSize === 'other' ? registrationData.otherShirtSize : registrationData.shirtSize,
         deliveryMethod: registrationData.deliveryMethod,
-        shippingAddress: registrationData.deliveryMethod === 'shipping' && registrationData.shippingAddress
-          ? `${registrationData.shippingAddress.address}, ${registrationData.shippingAddress.subDistrict}, ${registrationData.shippingAddress.district}, ${registrationData.shippingAddress.province} ${registrationData.shippingAddress.postalCode}`
-          : null,
+        shippingAddress: registrationData.deliveryMethod === 'shipping' ? registrationData.shippingAddress : null,
         emergencyPhone: registrationData.emergencyPhone
       };
 

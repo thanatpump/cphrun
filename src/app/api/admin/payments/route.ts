@@ -20,8 +20,11 @@ export async function GET(request: Request) {
     
     // สร้าง query conditions
     const where = registrationId 
-      ? { registrationId: parseInt(registrationId) }
-      : {}  // เอาเงื่อนไข paymentStatus ออก เพื่อให้แสดงข้อมูลทั้งหมด
+      ? { 
+          registrationId: parseInt(registrationId),
+          paymentStatus: 'PENDING_REVIEW'  // แก้ไขจาก PENDING_VERIFICATION เป็น PENDING_REVIEW
+        }
+      : { paymentStatus: 'PENDING_REVIEW' }  // แก้ไขจาก PENDING_VERIFICATION เป็น PENDING_REVIEW
 
     // ดึงข้อมูลการชำระเงิน
     const payments = await prisma.payment.findMany({

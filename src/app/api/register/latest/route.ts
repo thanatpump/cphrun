@@ -8,7 +8,7 @@ export async function GET() {
         createdAt: 'desc'
       },
       where: {
-        paymentStatus: 'pending'
+        paymentStatus: 'PENDING'
       }
     })
 

@@ -32,7 +32,7 @@ interface Payment {
 export default function PaymentsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">ตรวจสอบการชำระเงิน</h1>
+      <h1 className="text-3xl font-bold mb-8 text-gray-900">ตรวจสอบการชำระเงิน</h1>
       <Suspense fallback={<LoadingSpinner />}>
         <PaymentList />
       </Suspense>

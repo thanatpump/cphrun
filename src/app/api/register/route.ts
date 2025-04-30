@@ -66,7 +66,7 @@ export async function POST(request: Request) {
         district: data.shippingAddress?.district || null,
         province: data.shippingAddress?.province || null,
         postalCode: data.shippingAddress?.postalCode || null,
-        paymentStatus: 'pending'
+        paymentStatus: 'PENDING'
       }
     });
 
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         registrationId: registration.id,
         amount: data.eventType === 'funrun' ? 400 : 
                 data.eventType === 'minimarathon' ? 500 : 1000,
-        paymentStatus: 'pending',
+        paymentStatus: 'PENDING',
         paymentMethod: 'bank_transfer'
       }
     });

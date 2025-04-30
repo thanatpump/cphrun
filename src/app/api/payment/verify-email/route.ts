@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     const registration = await prisma.registration.findFirst({
       where: { 
         email: email,
-        paymentStatus: 'pending' // เฉพาะรายการที่รอการชำระเงิน
+        paymentStatus: 'PENDING' // เฉพาะรายการที่รอการชำระเงิน
       },
       include: { 
         payment: true 

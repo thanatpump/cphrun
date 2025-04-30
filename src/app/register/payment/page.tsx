@@ -145,22 +145,22 @@ export default function PaymentPage() {
               {/* ข้อมูลผู้สมัคร */}
               <div className="mb-8">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">ข้อมูลผู้สมัคร</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-900">
                   <div>
-                    <p className="font-medium">ชื่อ-นามสกุล</p>
-                    <p>{registrationData.firstName} {registrationData.lastName}</p>
+                    <p className="font-medium text-gray-700">ชื่อ-นามสกุล</p>
+                    <p className="text-gray-900">{registrationData.firstName} {registrationData.lastName}</p>
                   </div>
                   <div>
-                    <p className="font-medium">อีเมล</p>
-                    <p>{registrationData.email}</p>
+                    <p className="font-medium text-gray-700">อีเมล</p>
+                    <p className="text-gray-900">{registrationData.email}</p>
                   </div>
                   <div>
-                    <p className="font-medium">ประเภทการแข่งขัน</p>
-                    <p>{EVENT_TYPES[registrationData.eventType as keyof typeof EVENT_TYPES]}</p>
+                    <p className="font-medium text-gray-700">ประเภทการแข่งขัน</p>
+                    <p className="text-gray-900">{EVENT_TYPES[registrationData.eventType as keyof typeof EVENT_TYPES]}</p>
                   </div>
                   <div>
-                    <p className="font-medium">จำนวนเงิน</p>
-                    <p className="text-2xl font-bold text-violet-600">{amount} บาท</p>
+                    <p className="font-medium text-gray-700">จำนวนเงิน</p>
+                    <p className="text-2xl font-bold text-violet-700">{amount} บาท</p>
                   </div>
                 </div>
               </div>

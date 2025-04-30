@@ -195,7 +195,7 @@ export async function POST(request: Request) {
               where: { registrationId: registrationIdNumber },
               data: {
                 receiptImage: `/uploads/${filename}`,
-                paymentStatus: 'PENDING',
+                paymentStatus: 'PENDING_REVIEW',
                 updatedAt: new Date(),
                 amount: parseFloat(amount),
                 paymentMethod,
@@ -208,7 +208,7 @@ export async function POST(request: Request) {
               data: {
                 registrationId: registrationIdNumber,
                 receiptImage: `/uploads/${filename}`,
-                paymentStatus: 'PENDING',
+                paymentStatus: 'PENDING_REVIEW',
                 amount: parseFloat(amount),
                 paymentMethod,
                 paymentDate: new Date()
@@ -219,7 +219,7 @@ export async function POST(request: Request) {
           // อัพเดทสถานะการลงทะเบียน
           await tx.registration.update({
             where: { id: registrationIdNumber },
-            data: { paymentStatus: 'pending' }
+            data: { paymentStatus: 'PENDING_REVIEW' }
           })
 
           return payment

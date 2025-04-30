@@ -42,10 +42,10 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="absolute inset-0 z-0">
+      <section className="relative h-[calc(100vh-64px)]">
+        <div className="absolute inset-0">
           <Image
             src="/hero-bg.jpg"
             alt="Marathon Background"
@@ -59,12 +59,12 @@ export default function Home() {
         </div>
         
         <motion.div
-          className="relative z-10 container mx-auto"
+          className="relative z-10 container mx-auto h-full flex items-center px-4"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
             <motion.div variants={itemVariants} className="text-center lg:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 72 ปี โรงพยาบาลชัยภูมิ
@@ -110,7 +110,7 @@ export default function Home() {
       </section>
 
       {/* Countdown Section */}
-      <section className="section bg-gradient-to-b from-violet-900 to-violet-800">
+      <section className="py-20 bg-gradient-to-b from-violet-900 to-violet-800">
         <motion.div
           className="container mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -202,7 +202,7 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold text-center mb-16">รายละเอียดการแข่งขัน</h2>
+          <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">รายละเอียดการแข่งขัน</h2>
           <motion.div
             className="bg-white rounded-3xl p-12 shadow-xl"
             whileHover={{ scale: 1.02 }}
@@ -220,7 +220,7 @@ export default function Home() {
                   <h3 className="text-2xl font-bold text-violet-600 mb-4">สถานที่</h3>
                   <p className="text-xl text-gray-700">ศาลากลางจังหวัดชัยภูมิ</p>
                   <p className="text-lg text-gray-600 mt-2">จุดปล่อยตัว: บริเวณลานหน้าศาลากลาง</p>
-                  <p className="text-lg text-gray-600">เส้นชัย: สวนสาธารณะหนองปลาเฒ่า</p>
+                  <p className="text-lg text-gray-600">เส้นชัย: โรงพยาบาลชัยภูมิ</p>
                 </div>
               </div>
 

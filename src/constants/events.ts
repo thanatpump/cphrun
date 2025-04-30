@@ -26,8 +26,8 @@ export const DELIVERY_METHODS = {
 } as const
 
 export const PAYMENT_STATUS = {
-  PENDING: 'pending',
-  PENDING_REVIEW: 'pending_review',
-  APPROVED: 'approved',
-  REJECTED: 'rejected',
+  PENDING: 'PENDING',
+  PENDING_REVIEW: 'PENDING_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
 } as const 

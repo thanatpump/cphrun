@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     }
 
     // ตรวจสอบว่าสถานะถูกต้อง
-    const validStatuses = ['verified', 'rejected']
+    const validStatuses = ['COMPLETED', 'REJECTED']
     if (!validStatuses.includes(status)) {
       console.log('Invalid status:', status)
       return NextResponse.json(
@@ -76,8 +76,8 @@ export async function POST(request: Request) {
       const payment = await tx.payment.update({
         where: { id: paymentId },
         data: {
-          paymentStatus: status === 'verified' ? 'COMPLETED' : 'REJECTED',
-          paymentDate: status === 'verified' ? new Date() : null,
+          paymentStatus: status === 'COMPLETED' ? 'COMPLETED' : 'REJECTED',
+          paymentDate: status === 'COMPLETED' ? new Date() : null,
           verificationNote: verificationNote || null,
           updatedAt: new Date()
         },
@@ -92,7 +92,7 @@ export async function POST(request: Request) {
       await tx.registration.update({
         where: { id: payment.registrationId },
         data: {
-          paymentStatus: status === 'verified' ? 'COMPLETED' : 'REJECTED'
+          paymentStatus: status === 'COMPLETED' ? 'COMPLETED' : 'REJECTED'
         }
       })
 
@@ -116,7 +116,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: status === 'verified' ? 'ยืนยันการชำระเงินเรียบร้อย' : 'ปฏิเสธการชำระเงินเรียบร้อย',
+      message: status === 'COMPLETED' ? 'ยืนยันการชำระเงินเรียบร้อย' : 'ปฏิเสธการชำระเงินเรียบร้อย',
       data: result
     })
 

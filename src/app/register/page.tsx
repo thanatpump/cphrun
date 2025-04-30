@@ -188,10 +188,17 @@ export default function Register() {
     setError('');
 
     // ตรวจสอบข้อมูลที่จำเป็น
-    if (!formData.firstName || !formData.lastName || !formData.birthDate || !formData.age || 
-        !formData.phone || !formData.email || !formData.eventType || !formData.shirtSize || 
+    if (!formData.firstName || !formData.lastName || !formData.phone || 
+        !formData.email || !formData.eventType || !formData.shirtSize || 
         !formData.deliveryMethod || !formData.emergencyPhone) {
       setError('กรุณากรอกข้อมูลให้ครบถ้วน');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // ตรวจสอบวันเกิด
+    if (!selectedDay || !selectedMonth || !selectedYear) {
+      setError('กรุณาเลือกวันเกิดให้ครบถ้วน');
       setIsSubmitting(false);
       return;
     }
@@ -254,6 +261,12 @@ export default function Register() {
       // บันทึกข้อมูลลง localStorage สำหรับหน้า summary
       localStorage.setItem('tempRegistrationData', JSON.stringify(registrationData));
       
+      // ตรวจสอบว่าบันทึกข้อมูลสำเร็จ
+      const savedData = localStorage.getItem('tempRegistrationData');
+      if (!savedData) {
+        throw new Error('ไม่สามารถบันทึกข้อมูลได้');
+      }
+
       // นำไปยังหน้า summary
       router.push('/register/summary');
     } catch (error) {
@@ -495,7 +508,7 @@ export default function Register() {
                     </select>
                     {formData.deliveryMethod === 'shipping' && (
                       <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">ที่อยู่จัดส่ง</h3>
+                        <h3 className="text-lg font-semibold text-violet-700">ที่อยู่จัดส่ง</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -505,7 +518,7 @@ export default function Register() {
                               name="address"
                               value={formData.address}
                               onChange={handleChange}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
                               rows={3}
                               required
                             />
@@ -519,7 +532,7 @@ export default function Register() {
                               name="subDistrict"
                               value={formData.subDistrict}
                               onChange={handleChange}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
                               required
                             />
                           </div>
@@ -532,7 +545,7 @@ export default function Register() {
                               name="district"
                               value={formData.district}
                               onChange={handleChange}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
                               required
                             />
                           </div>
@@ -545,7 +558,7 @@ export default function Register() {
                               name="province"
                               value={formData.province}
                               onChange={handleChange}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
                               required
                             />
                           </div>
@@ -558,7 +571,7 @@ export default function Register() {
                               name="postalCode"
                               value={formData.postalCode}
                               onChange={handleChange}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
                               required
                             />
                           </div>
